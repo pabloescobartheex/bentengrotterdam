@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BENTENG ROUTTERDAM</title>
+  <style>
+    /* Reset and base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7ffba;
+      color: #333;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      background: linear-gradient(90deg, #710707 0%, #f9ecb5 100%);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      user-select: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.8rem;
+    }
+    nav ul li {
+      cursor: pointer;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    nav ul li:hover,
+    nav ul li.active {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    section {
+      display: none;
+      animation: fadeIn 0.6s ease forwards;
+    }
+    section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* Home Page */
+    #home h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #b60000;
+    }
+    #home p {
+      font-size: 1.15rem;
+      margin-bottom: 1rem;
+      color: #121104;
+    }
+    #home .hero {
+      background: url("Gambar\ WhatsApp\ 2025-05-24\ pukul\ 13.54.35_fc2fde4f.jpg") no-repeat center center/cover;
+      height: 300px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      margin-bottom: 2rem;
+      position: relative;
+      color: white;
+    }
+    #home .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      border-radius: 15px;
+    }
+    #home .hero-text {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+    }
+
+    /* Destinations */
+    #destinations h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #740303;
+    }
+    .dest-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap: 1.5rem;
+    }
+    .dest-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .dest-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .dest-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .dest-card .dest-info {
+      padding: 1rem;
+    }
+    .dest-card .dest-info h3 {
+      margin-bottom: 0.3rem;
+      color: #760318;
+    }
+    .dest-card .dest-info p {
+      color: #100404;
+      font-size: 0.95rem;
+    }
+
+    /* Gallery */
+    #gallery h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #7b0606;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 12px;
+    }
+    .gallery-grid img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Documentation */
+    #documentation h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #75041e;
+    }
+    #documentation form {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: 20px;
+    }
+    #documentation label {
+      display: block;
+      margin-bottom: 2%;
+      font-weight: 600;
+      color: #023e8a;
+    }
+    #documentation input[type="text"],
+    #documentation input[type="file"],
+    #documentation textarea {
+      width: 500%;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      border: 2px;
+      font-size: 1rem;
+      transition: border;
+
+    }
+    #documentation input[type="text"]:focus,
+    #documentation input[type="file"]:focus,
+    #documentation textarea:focus {
+      outline: none;
+      border-color: #0077b6;
+      box-shadow: 0 0 5px #00b4d8;
+    }
+    #documentation button {
+      background: #0077b6;
+      color: white;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #documentation button:hover {
+      background: #0096c7;
+    }
+    #doc-message {
+      text-align: center;
+      margin-top: 2rem;
+      color: green;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      background-color: #610707;
+      color: white;
+      user-select: none;
+      letter-spacing: 1px;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      header {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Benteng Routterdam</h1>
+    <nav>
+      <ul id="nav-list">
+        <li class="active" data-target="home">Beranda</li>
+        <li data-target="destinations">Blog</li>
+        <li data-target="gallery">Gallery</li>
+        <li data-target="documentation">Sejarah</li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="active">
+      <div class="hero">
+        <div class="hero-text">Jelajahi Keindahan Benteng Routterdam</div>
+      </div>
+      <h2>Selamat Datang di Wisata Benteng Routterdam</h2>
+      <p>
+        Destinasi Wisata Bersejarah: Benteng Fort Rotterdam adalah destinasi wisata populer yang menawarkan pengalaman wisata bersejarah yang menarik. Benteng ini juga bisa dijadikan sumber belajar bagi peserta didik.
+    </p>
+      <p>
+    </section>
+
+    <section id="destinations">
+      <h2>Destinasi Bersejarah</h2>
+      <div class="dest-list">
+        <div class="dest-card">
+          <img src="gambar 7.jpg" alt="Benteng" />
+          <div class="dest-info">
+            <h3>Terowongan</h3>
+            <p>bagian dari struktur bangunan yang lebih besar, mungkin benteng atau bangunan bersejarah dengan desain arsitektur yang khas.</p>
+          </div>
+        </div>
+        <div class="dest-card">
+          <img src="gambar 4.jpg" alt="Museum Lagaligo" />
+          <div class="dest-info">
+            <h3>Museum Lagaligo</h3>
+            <p>Museum La Galigo menempati bekas kediaman Gubernur Belanda, Admiral C.J Speelman. Awalnya, museum ini bernama Celebes Museum yang didirikan pada tahun 1938 oleh Pemerintah Hindia Belanda.</p>
+          </div>
+        </div>
+        <div class="dest-card">
+          <img src="gambar 5.jpg" alt="Monumen Peringatan" />
+          <div class="dest-info">
+            <h3>Monumen Peringatan</h3>
+            <p>Monumen ini memiliki dasar berbentuk persegi panjang yang bertingkat, dengan bagian atas berbentuk obelisk.</p>
+          </div>
+        </div>
+        <div class="dest-card">
+          <img src="gambar 6.jpg" alt="Fort Routterdam" />
+          <div class="dest-info">
+            <h3>Meriam</h3>
+            <p>Fort Rotterdam. Meriam ini kemungkinan merupakan bagian dari pertahanan benteng pada masa lalu.</p>
+          </div>
+          </div>
+          <div class="dest-card">
+          <img src="penjara.jpg" alt="Fort Routterdam" />
+          <div class="dest-info">
+            <h3>Penjara Bawah Tanah</h3>
+            <p>Penjara bawah tanah di Rotterdam sebenarnya bukan penjara yang terletak di bawah tanah, melainkan penjara dalam kompleks benteng Fort Rotterdam di Makassar, Sulawesi Selatan. Benteng ini dulunya merupakan peninggalan Kerajaan Gowa, yang kemudian diambil alih oleh Belanda dan dikenal sebagai Fort Rotterdam. Penjara bawah tanah ini digunakan oleh Belanda untuk menahan para tokoh perlawanan, termasuk Pangeran Diponegoro.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <h2>Galeri Foto Wisata</h2>
+      <div class="gallery-grid">
+        <img src="gambar 2.jpg" alt="#"/>
+        <img src="gambar 3.jpg" alt="#" />
+        <img src="gambar11.jpg" alt="#" />
+        <img src="gambar 12.jpg" alt="#" />
+        <img src="gambar 23.jpg" alt="#" />
+        <img src="gambar 24.jpg" alt="" />
+        <img src="gambar 31.jpg" alt="#"/>
+        <img src="gambar 32.jpg" alt="#"/>
+        <img src="gambar 33.jpg" alt="#"/>
+        <img src="IMG_3480.JPG" alt="#"/>
+        <img src="IMG_3447.JPG" alt="#"/>
+        <img src="IMG_3496.JPG" alt="#"/>
+        <img src="IMG_3493.JPG" alt="#"/>
+         <img src="IMG_3450.JPG" alt="#"/>
+         <img src="IMG_3451.JPG" alt="#"/>
+         <img src="IMG_3446.JPG" alt="#"/>
+        
+      </div>
+    </section>
+
+    <section id="documentation">
+      <h2>Latar Belakang Benteng Routterdam</h2>
+        <img src="cover baground.jpg"  alt="Gambar" class="gambar-style">
+
+        <p>Benteng Rotterdam atau Benteng Ujung Pandang adalah sebuah benteng peninggalan Kerajaan Gowa-Tallo. Letak benteng ini berada di pinggir pantai sebelah barat Kota Makassar, Sulawesi Selatan.
+Benteng ini awalnya dibangun pada tahun 1545 oleh Raja Gowa ke-9 yang bernama Daeng Matanre Karaeng Tumapa'risi' Kallonna. Situs ini kemudian diserahkan kepada VOC Belanda di bawah Perjanjian Bungaya 1667 untuk diduduki. Benteng ini memiliki enam bastion dan dikelilingi oleh dinding setinggi tujuh meter dan parit sedalam dua meter.Benteng ini kemudian digunakan oleh Belanda sebagai pusat penampungan rempah-rempah di Indonesia bagian timur.
+ Benteng ini juga merupakan markas militer dan pemerintahan daerah Belanda hingga tahun 1930-an. Pada 1937 kepemilikan Benteng Rotterdam oleh pemerintah Hindia Belanda diserahkan kepada Yayasan Fort Rotterdam.[1] Benteng ini terdaftar sebagai bangunan bersejarah pada 23 Mei 1940.[1] Benteng ini dipugar secara ekstensif pada tahun 1970-an dan sekarang menjadi pusat budaya dan pendidikan, tempat untuk berbagai acara musik dan tarian, serta tujuan wisata.</p>
+      
+      </form>
+      <div id="doc-message"></div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Wisata Benteng Routterdam. Semua hak cipta dilindungi.
+  </footer>
+
+  <script>
+    const navItems = document.querySelectorAll('#nav-list li');
+    const sections = document.querySelectorAll('main > section');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // Remove active class from nav
+        navItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        // Show corresponding section
+        const target = item.getAttribute('data-target');
+        sections.forEach(sec => {
+          if (sec.id === target) {
+            sec.classList.add('active');
+          } else {
+            sec.classList.remove('active');
+          }
+        });
+        // Scroll to top on section change for better UX
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      });
+    });
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const desc = document.getElementById('desc').value.trim();
+      const fileInput = document.getElementById('file');
+
+      if (!name || !desc || fileInput.files.length === 0) {
+        alert('Mohon lengkapi semua bidang.');
+        return false;
+      }
+
+      // Since no backend, we will show a success message and reset form
+      document.getElementById('doc-message').textContent = 'Dokumentasi berhasil dikirim. Terima kasih, ' + name + '!';
+      document.getElementById('docForm').reset();
+
+      // Optionally: scroll to message
+      document.getElementById('doc-message').scrollIntoView({ behavior: "smooth" });
+      return false;
+    }
+  </script>
+</body>
+</html>
+
